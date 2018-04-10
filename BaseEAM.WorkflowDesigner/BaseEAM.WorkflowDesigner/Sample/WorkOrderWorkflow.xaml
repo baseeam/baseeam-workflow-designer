@@ -1,0 +1,652 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="BaseEAM.Workflows.WorkOrder.WorkOrderWorkflow"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:bcd="clr-namespace:BaseEAM.Core.Domain;assembly=BaseEAM.Core"
+ xmlns:bwa="clr-namespace:BaseEAM.Workflows.Activities;assembly=BaseEAM.Workflows.Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="WorkflowInput" Type="InArgument(bcd:WorkflowInput)" />
+  </x:Members>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>BaseEAM.Workflows.WorkOrder.WorkOrderWorkflow_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>BaseEAM.Core.Domain</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>log4net</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Activities.DurableInstancing</AssemblyReference>
+      <AssemblyReference>System.Configuration</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Runtime.DurableInstancing</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>BaseEAM.Core</AssemblyReference>
+      <AssemblyReference>BaseEAM.Data</AssemblyReference>
+      <AssemblyReference>BaseEAM.Services</AssemblyReference>
+      <AssemblyReference>BaseEAM.Workflows.Activities</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>BaseEAM.Workflows</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="bcd:WorkflowVariable" Name="WorkflowVariable" />
+    </Flowchart.Variables>
+    <Flowchart.StartNode>
+      <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_1">
+        <bwa:Task MessageTemplate="{x:Null}" AssignAll="False" DisplayName="Open" sap2010:WorkflowViewState.IdRef="Task_1" Name="Open" Users="IWorkOrderService.GetCreatedUser">
+          <bwa:Task.DueDateTime>
+            <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+              <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow.AddDays(1)</mca:CSharpValue>
+            </InArgument>
+          </bwa:Task.DueDateTime>
+          <bwa:Task.ExpectedStartDateTime>
+            <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+              <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+            </InArgument>
+          </bwa:Task.ExpectedStartDateTime>
+          <bwa:Task.WorkflowInput>
+            <InArgument x:TypeArguments="bcd:WorkflowInput">
+              <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+            </InArgument>
+          </bwa:Task.WorkflowInput>
+          <bwa:Task.WorkflowVariable>
+            <InArgument x:TypeArguments="bcd:WorkflowVariable">
+              <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+            </InArgument>
+          </bwa:Task.WorkflowVariable>
+        </bwa:Task>
+        <FlowStep.Next>
+          <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_2">
+            <bwa:WaitForAction x:TypeArguments="bcd:WorkflowVariable" AvailableActions="Submit" DisplayName="WaitingForAction" sap2010:WorkflowViewState.IdRef="WaitForAction`1_1">
+              <bwa:WaitForAction.Result>
+                <OutArgument x:TypeArguments="bcd:WorkflowVariable">
+                  <mca:CSharpReference x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpReference>
+                </OutArgument>
+              </bwa:WaitForAction.Result>
+              <bwa:WaitForAction.WorkflowInput>
+                <InArgument x:TypeArguments="bcd:WorkflowInput">
+                  <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                </InArgument>
+              </bwa:WaitForAction.WorkflowInput>
+            </bwa:WaitForAction>
+            <FlowStep.Next>
+              <FlowSwitch x:TypeArguments="x:String" x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowSwitch`1_1">
+                <FlowSwitch.Default>
+                  <FlowStep x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_3">
+                    <bwa:Task MessageTemplate="{x:Null}" AssignAll="True" DisplayName="Planning" sap2010:WorkflowViewState.IdRef="Task_2" Name="Planning" Users="WorkManager">
+                      <bwa:Task.DueDateTime>
+                        <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                          <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow.AddDays(7)</mca:CSharpValue>
+                        </InArgument>
+                      </bwa:Task.DueDateTime>
+                      <bwa:Task.ExpectedStartDateTime>
+                        <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                          <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                        </InArgument>
+                      </bwa:Task.ExpectedStartDateTime>
+                      <bwa:Task.WorkflowInput>
+                        <InArgument x:TypeArguments="bcd:WorkflowInput">
+                          <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                        </InArgument>
+                      </bwa:Task.WorkflowInput>
+                      <bwa:Task.WorkflowVariable>
+                        <InArgument x:TypeArguments="bcd:WorkflowVariable">
+                          <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+                        </InArgument>
+                      </bwa:Task.WorkflowVariable>
+                    </bwa:Task>
+                    <FlowStep.Next>
+                      <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_4">
+                        <bwa:WaitForAction x:TypeArguments="bcd:WorkflowVariable" AvailableActions="Release;Cancel" DisplayName="WaitingForAction" sap2010:WorkflowViewState.IdRef="WaitForAction`1_2">
+                          <bwa:WaitForAction.Result>
+                            <OutArgument x:TypeArguments="bcd:WorkflowVariable">
+                              <mca:CSharpReference x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpReference>
+                            </OutArgument>
+                          </bwa:WaitForAction.Result>
+                          <bwa:WaitForAction.WorkflowInput>
+                            <InArgument x:TypeArguments="bcd:WorkflowInput">
+                              <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                            </InArgument>
+                          </bwa:WaitForAction.WorkflowInput>
+                        </bwa:WaitForAction>
+                        <FlowStep.Next>
+                          <FlowSwitch x:TypeArguments="x:String" x:Name="__ReferenceID7" sap2010:WorkflowViewState.IdRef="FlowSwitch`1_2">
+                            <FlowSwitch.Default>
+                              <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_5">
+                                <bwa:Task MessageTemplate="{x:Null}" AssignAll="True" DisplayName="Execution" sap2010:WorkflowViewState.IdRef="Task_3" Name="Execution" Users="IWorkOrderService.GetAssignedTechnicians">
+                                  <bwa:Task.DueDateTime>
+                                    <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                      <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow.AddDays(7)</mca:CSharpValue>
+                                    </InArgument>
+                                  </bwa:Task.DueDateTime>
+                                  <bwa:Task.ExpectedStartDateTime>
+                                    <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                      <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                                    </InArgument>
+                                  </bwa:Task.ExpectedStartDateTime>
+                                  <bwa:Task.WorkflowInput>
+                                    <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                      <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                    </InArgument>
+                                  </bwa:Task.WorkflowInput>
+                                  <bwa:Task.WorkflowVariable>
+                                    <InArgument x:TypeArguments="bcd:WorkflowVariable">
+                                      <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+                                    </InArgument>
+                                  </bwa:Task.WorkflowVariable>
+                                </bwa:Task>
+                                <FlowStep.Next>
+                                  <FlowStep x:Name="__ReferenceID13" sap2010:WorkflowViewState.IdRef="FlowStep_17">
+                                    <bwa:WaitForAction x:TypeArguments="bcd:WorkflowVariable" AvailableActions="Complete" DisplayName="WaitingForAction" sap2010:WorkflowViewState.IdRef="WaitForAction`1_8">
+                                      <bwa:WaitForAction.Result>
+                                        <OutArgument x:TypeArguments="bcd:WorkflowVariable">
+                                          <mca:CSharpReference x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpReference>
+                                        </OutArgument>
+                                      </bwa:WaitForAction.Result>
+                                      <bwa:WaitForAction.WorkflowInput>
+                                        <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                          <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                        </InArgument>
+                                      </bwa:WaitForAction.WorkflowInput>
+                                    </bwa:WaitForAction>
+                                    <FlowStep.Next>
+                                      <FlowStep x:Name="__ReferenceID8" sap2010:WorkflowViewState.IdRef="FlowStep_11">
+                                        <bwa:Task MessageTemplate="{x:Null}" AssignAll="True" DisplayName="Review" sap2010:WorkflowViewState.IdRef="Task_7" Name="Review" Users="WorkManager">
+                                          <bwa:Task.DueDateTime>
+                                            <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                              <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow.AddDays(7)</mca:CSharpValue>
+                                            </InArgument>
+                                          </bwa:Task.DueDateTime>
+                                          <bwa:Task.ExpectedStartDateTime>
+                                            <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                              <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                                            </InArgument>
+                                          </bwa:Task.ExpectedStartDateTime>
+                                          <bwa:Task.WorkflowInput>
+                                            <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                              <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                            </InArgument>
+                                          </bwa:Task.WorkflowInput>
+                                          <bwa:Task.WorkflowVariable>
+                                            <InArgument x:TypeArguments="bcd:WorkflowVariable">
+                                              <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+                                            </InArgument>
+                                          </bwa:Task.WorkflowVariable>
+                                        </bwa:Task>
+                                        <FlowStep.Next>
+                                          <FlowStep x:Name="__ReferenceID14" sap2010:WorkflowViewState.IdRef="FlowStep_16">
+                                            <bwa:WaitForAction x:TypeArguments="bcd:WorkflowVariable" AvailableActions="Accept;Reject" DisplayName="WaitingForAction" sap2010:WorkflowViewState.IdRef="WaitForAction`1_7">
+                                              <bwa:WaitForAction.Result>
+                                                <OutArgument x:TypeArguments="bcd:WorkflowVariable">
+                                                  <mca:CSharpReference x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpReference>
+                                                </OutArgument>
+                                              </bwa:WaitForAction.Result>
+                                              <bwa:WaitForAction.WorkflowInput>
+                                                <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                                  <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                                </InArgument>
+                                              </bwa:WaitForAction.WorkflowInput>
+                                            </bwa:WaitForAction>
+                                            <FlowStep.Next>
+                                              <FlowSwitch x:TypeArguments="x:String" x:Name="__ReferenceID11" sap2010:WorkflowViewState.IdRef="FlowSwitch`1_5">
+                                                <FlowSwitch.Default>
+                                                  <FlowStep x:Name="__ReferenceID9" sap2010:WorkflowViewState.IdRef="FlowStep_13">
+                                                    <bwa:Task MessageTemplate="{x:Null}" AssignAll="True" DisplayName="Closed" sap2010:WorkflowViewState.IdRef="Task_8" Name="Closed" Users="WorkManager">
+                                                      <bwa:Task.DueDateTime>
+                                                        <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                                          <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                                                        </InArgument>
+                                                      </bwa:Task.DueDateTime>
+                                                      <bwa:Task.ExpectedStartDateTime>
+                                                        <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                                          <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                                                        </InArgument>
+                                                      </bwa:Task.ExpectedStartDateTime>
+                                                      <bwa:Task.WorkflowInput>
+                                                        <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                                          <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                                        </InArgument>
+                                                      </bwa:Task.WorkflowInput>
+                                                      <bwa:Task.WorkflowVariable>
+                                                        <InArgument x:TypeArguments="bcd:WorkflowVariable">
+                                                          <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+                                                        </InArgument>
+                                                      </bwa:Task.WorkflowVariable>
+                                                    </bwa:Task>
+                                                    <FlowStep.Next>
+                                                      <FlowStep x:Name="__ReferenceID16" sap2010:WorkflowViewState.IdRef="FlowStep_19">
+                                                        <bwa:Action ActionName="IWorkOrderService.CloseWorkOrder" DisplayName="GenerateNextWOForPM" sap2010:WorkflowViewState.IdRef="Action_1">
+                                                          <bwa:Action.WorkflowInput>
+                                                            <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                                              <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </bwa:Action.WorkflowInput>
+                                                          <bwa:Action.WorkflowVariable>
+                                                            <InArgument x:TypeArguments="bcd:WorkflowVariable">
+                                                              <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </bwa:Action.WorkflowVariable>
+                                                        </bwa:Action>
+                                                      </FlowStep>
+                                                    </FlowStep.Next>
+                                                  </FlowStep>
+                                                </FlowSwitch.Default>
+                                                <FlowSwitch.Expression>
+                                                  <mca:CSharpValue x:TypeArguments="x:String">WorkflowVariable.CurrentAction</mca:CSharpValue>
+                                                </FlowSwitch.Expression>
+                                                <FlowStep x:Key="Reject" x:Name="__ReferenceID10" sap2010:WorkflowViewState.IdRef="FlowStep_14">
+                                                  <bwa:Task MessageTemplate="{x:Null}" AssignAll="True" DisplayName="Rejected" sap2010:WorkflowViewState.IdRef="Task_9" Name="Rejected" Users="WorkManager">
+                                                    <bwa:Task.DueDateTime>
+                                                      <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                                        <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow.AddDays(7)</mca:CSharpValue>
+                                                      </InArgument>
+                                                    </bwa:Task.DueDateTime>
+                                                    <bwa:Task.ExpectedStartDateTime>
+                                                      <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                                        <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                                                      </InArgument>
+                                                    </bwa:Task.ExpectedStartDateTime>
+                                                    <bwa:Task.WorkflowInput>
+                                                      <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                                        <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                                      </InArgument>
+                                                    </bwa:Task.WorkflowInput>
+                                                    <bwa:Task.WorkflowVariable>
+                                                      <InArgument x:TypeArguments="bcd:WorkflowVariable">
+                                                        <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+                                                      </InArgument>
+                                                    </bwa:Task.WorkflowVariable>
+                                                  </bwa:Task>
+                                                  <FlowStep.Next>
+                                                    <FlowStep x:Name="__ReferenceID15" sap2010:WorkflowViewState.IdRef="FlowStep_18">
+                                                      <bwa:WaitForAction x:TypeArguments="bcd:WorkflowVariable" AvailableActions="Rework;Cancel" DisplayName="WaitingForAction" sap2010:WorkflowViewState.IdRef="WaitForAction`1_9">
+                                                        <bwa:WaitForAction.Result>
+                                                          <OutArgument x:TypeArguments="bcd:WorkflowVariable">
+                                                            <mca:CSharpReference x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpReference>
+                                                          </OutArgument>
+                                                        </bwa:WaitForAction.Result>
+                                                        <bwa:WaitForAction.WorkflowInput>
+                                                          <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                                            <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                                          </InArgument>
+                                                        </bwa:WaitForAction.WorkflowInput>
+                                                      </bwa:WaitForAction>
+                                                      <FlowStep.Next>
+                                                        <FlowSwitch x:TypeArguments="x:String" Default="{x:Reference __ReferenceID0}" x:Name="__ReferenceID12" sap2010:WorkflowViewState.IdRef="FlowSwitch`1_6">
+                                                          <FlowSwitch.Expression>
+                                                            <mca:CSharpValue x:TypeArguments="x:String">WorkflowVariable.CurrentAction</mca:CSharpValue>
+                                                          </FlowSwitch.Expression>
+                                                          <FlowStep x:Key="Cancel" x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_6">
+                                                            <bwa:Task MessageTemplate="{x:Null}" AssignAll="True" DisplayName="Cancelled" sap2010:WorkflowViewState.IdRef="Task_4" Name="Cancelled" Users="WorkManager">
+                                                              <bwa:Task.DueDateTime>
+                                                                <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                                                  <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                                                                </InArgument>
+                                                              </bwa:Task.DueDateTime>
+                                                              <bwa:Task.ExpectedStartDateTime>
+                                                                <InArgument x:TypeArguments="s:Nullable(s:DateTime)">
+                                                                  <mca:CSharpValue x:TypeArguments="s:Nullable(s:DateTime)">DateTime.UtcNow</mca:CSharpValue>
+                                                                </InArgument>
+                                                              </bwa:Task.ExpectedStartDateTime>
+                                                              <bwa:Task.WorkflowInput>
+                                                                <InArgument x:TypeArguments="bcd:WorkflowInput">
+                                                                  <mca:CSharpValue x:TypeArguments="bcd:WorkflowInput">WorkflowInput</mca:CSharpValue>
+                                                                </InArgument>
+                                                              </bwa:Task.WorkflowInput>
+                                                              <bwa:Task.WorkflowVariable>
+                                                                <InArgument x:TypeArguments="bcd:WorkflowVariable">
+                                                                  <mca:CSharpValue x:TypeArguments="bcd:WorkflowVariable">WorkflowVariable</mca:CSharpValue>
+                                                                </InArgument>
+                                                              </bwa:Task.WorkflowVariable>
+                                                            </bwa:Task>
+                                                          </FlowStep>
+                                                        </FlowSwitch>
+                                                      </FlowStep.Next>
+                                                    </FlowStep>
+                                                  </FlowStep.Next>
+                                                </FlowStep>
+                                              </FlowSwitch>
+                                            </FlowStep.Next>
+                                          </FlowStep>
+                                        </FlowStep.Next>
+                                      </FlowStep>
+                                    </FlowStep.Next>
+                                  </FlowStep>
+                                </FlowStep.Next>
+                              </FlowStep>
+                            </FlowSwitch.Default>
+                            <FlowSwitch.Expression>
+                              <mca:CSharpValue x:TypeArguments="x:String">WorkflowVariable.CurrentAction</mca:CSharpValue>
+                            </FlowSwitch.Expression>
+                            <x:Reference>__ReferenceID1<x:Key>Cancel</x:Key></x:Reference>
+                          </FlowSwitch>
+                        </FlowStep.Next>
+                      </FlowStep>
+                    </FlowStep.Next>
+                  </FlowStep>
+                </FlowSwitch.Default>
+                <FlowSwitch.Expression>
+                  <mca:CSharpValue x:TypeArguments="x:String">WorkflowVariable.CurrentAction</mca:CSharpValue>
+                </FlowSwitch.Expression>
+              </FlowSwitch>
+            </FlowStep.Next>
+          </FlowStep>
+        </FlowStep.Next>
+      </FlowStep>
+    </Flowchart.StartNode>
+    <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID3</x:Reference>
+    <x:Reference>__ReferenceID4</x:Reference>
+    <x:Reference>__ReferenceID5</x:Reference>
+    <x:Reference>__ReferenceID6</x:Reference>
+    <x:Reference>__ReferenceID7</x:Reference>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID1</x:Reference>
+    <x:Reference>__ReferenceID8</x:Reference>
+    <x:Reference>__ReferenceID9</x:Reference>
+    <x:Reference>__ReferenceID10</x:Reference>
+    <x:Reference>__ReferenceID11</x:Reference>
+    <x:Reference>__ReferenceID12</x:Reference>
+    <x:Reference>__ReferenceID13</x:Reference>
+    <x:Reference>__ReferenceID14</x:Reference>
+    <x:Reference>__ReferenceID15</x:Reference>
+    <x:Reference>__ReferenceID16</x:Reference>
+    <sads:DebugSymbol.Symbol>d2VEOlxNaWxsRG9sXEJhc2VFQU1fQ2xvdWRfV29ya2Zsb3dcQmFzZUVBTS5Xb3JrZmxvd1xCYXNlRUFNLldvcmtmbG93c1xXb3JrT3JkZXJcV29ya09yZGVyV29ya2Zsb3cueGFtbEE4A/0CDwIBAT4JUxQDAYwBVg1hIQMBhQHjAhPjAm8DAYIBZhV7IAIBdH4ZiQEtAgFt2QIf2QJ7AgFqjgEhowEsAgFcpgElsQE5AgFVtAEpyQE0AgFHzAEt1wFBAgFAhQIzhQKPAQIBPdwBNfEBQAIBL/QBOf8BRgIBKIgCM50CPgIBGqACN6sCSwIBE68CPa8CmQECARCyAj3HAkgCAQI+OD4/AwGZAUYPRmoDAZYBUA9QaQMBkwFBD0F1AwGQAUsPS2MDAY0BWRNZdQMBiQFeE15nAwGGAWZEZkoDAYEBbhtudgIBfngbeHUCAXtpG2mBAQIBeHMbc28CAXWBAR+BAYEBAgFxhgEfhgFzAgFujgFQjgFWAgFplgEnlgGCAQIBZqABJ6ABgQECAWORASeRAY0BAgFgmwEnmwF7AgFdqQErqQGNAQIBWa4BK64BfwIBVrQBWLQBXgIBVLwBL7wBigECAVHGAS/GAYkBAgFOtwEvtwGVAQIBS8EBL8EBgwECAUjPATPPAZUBAgFE1AEz1AGHAQIBQdwBZNwBagIBPOQBO+QBlgECATnuATvuAZUBAgE23wE73wGWAQIBM+kBO+kBjwECATD8AT/8AZkBAgEs9wE/9wGTAQIBKYgCYogCaAIBJ5ACOZAClAECASSaAjmaApMBAgEhiwI5iwKfAQIBHpUCOZUCjQECARujAj2jAp8BAgEXqAI9qAKRAQIBFLICbLICcgIBD7oCQ7oCngECAQzEAkPEAp0BAgEJtQJDtQKeAQIBBr8CQ78ClwECAQM=</sads:DebugSymbol.Symbol>
+  </Flowchart>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Task_1" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WaitForAction`1_1" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Task_2" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WaitForAction`1_2" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Task_3" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WaitForAction`1_8" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Task_7" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WaitForAction`1_7" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Task_8" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Action_1" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_19">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">450,802</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_13">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">450,732</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">550,768 550,802</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Task_9" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WaitForAction`1_9" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Task_4" sap:VirtualizedContainerService.HintSize="200,36">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">760,362</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowSwitch`1_6" sap:VirtualizedContainerService.HintSize="70,86.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">845,496.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">70,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="Default">862.5,496.666666666667 862.5,420 530,420</av:PointCollection>
+            <x:String x:Key="DefaultCaseDisplayName">Rework</x:String>
+            <av:PointCollection x:Key="CancelConnector">897.5,496.666666666667 897.5,466.666666666667 990,466.666666666667 990,380 960,380</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_18">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">820,662</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">920,662 920,632 897.5,632 897.5,583.333333333333</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_14">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">820,732</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">920,732 920,698</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowSwitch`1_5" sap:VirtualizedContainerService.HintSize="70,86.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">605,596.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">70,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="Default">622.5,683.333333333333 622.5,713.333333333333 550,713.333333333333 550,732</av:PointCollection>
+            <av:PointCollection x:Key="RejectConnector">675,640 705,640 705,750 820,750</av:PointCollection>
+            <x:String x:Key="DefaultCaseDisplayName">Accept</x:String>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_16">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">330,612</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">530,630 560,630 560,640 605,640</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_11">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">330,542</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">430,578 430,612</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_17">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">330,472</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">430,508 430,542</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_5">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">330,402</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">430,438 430,472</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowSwitch`1_2" sap:VirtualizedContainerService.HintSize="70,86.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">525,256.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">70,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="Default">542.5,343.333333333333 542.5,373.333333333333 430,373.333333333333 430,402</av:PointCollection>
+            <av:PointCollection x:Key="CancelConnector">595,300 860,300 860,362</av:PointCollection>
+            <x:String x:Key="DefaultCaseDisplayName">Release</x:String>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">280,252</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">380,288 380,321.666666666667 525,321.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">280,192</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">380,228 380,252</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowSwitch`1_1" sap:VirtualizedContainerService.HintSize="70,86.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">345,76.6666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">70,86.6666666666667</av:Size>
+            <av:PointCollection x:Key="Default">380,163.333333333333 380,192</av:PointCollection>
+            <x:String x:Key="DefaultCaseDisplayName">Submit</x:String>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">100,72</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,90 330,90 330,120 345,120</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">100,22</av:Point>
+            <av:Size x:Key="ShapeSize">200,36</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">200,58 200,72</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="1188.66666666667,1028.66666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <av:Point x:Key="ShapeLocation">10,2.66666666666666</av:Point>
+            <av:Size x:Key="ShapeSize">60,74.6666666666667</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">70,40 100,40</av:PointCollection>
+            <x:Double x:Key="Width">1174.6666666666663</x:Double>
+            <x:Double x:Key="Height">992.66666666666674</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BaseEAM.Workflows.WorkOrder.WorkOrderWorkflow_1" sap:VirtualizedContainerService.HintSize="1228.66666666667,1108.66666666667" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

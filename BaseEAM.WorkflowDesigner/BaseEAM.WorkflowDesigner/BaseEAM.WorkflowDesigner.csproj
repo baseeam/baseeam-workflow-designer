@@ -73,6 +73,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WorkflowDLLs\BaseEAM.Core.dll" />
+    <Content Include="WorkflowDLLs\BaseEAM.Data.dll" />
+    <Content Include="WorkflowDLLs\BaseEAM.Services.dll" />
     <Content Include="WorkflowDLLs\BaseEAM.Workflows.Activities.Design.dll" />
     <Content Include="WorkflowDLLs\BaseEAM.Workflows.Activities.dll" />
   </ItemGroup>
